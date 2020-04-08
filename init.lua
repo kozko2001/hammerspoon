@@ -118,19 +118,21 @@ end
 -- Applications
 
 local apps = {
-  c = 'Google Chrome',
+  c = 'Firefox',
   e = 'Emacs',
   f = 'Finder',
   t = 'iTerm',
   p = 'KeePassXC',
-  a = 'Todoist',
-  m = 'Vox',
-  s = 'Rambox'
+  s = 'Slack',
+  m = 'Microsoft Outlook',
+  z = 'Zoom.us'
 }
 
 for key, app in pairs(apps) do
-  hs.hotkey.bind(hyper, key, function() hs.application.launchOrFocus(app) end)
+  hs.hotkey.bind(hyper, key, function() print(hs.application.launchOrFocus(app)) end)
 end
+
+hs.hotkey.bind(hyper, "e", function() hs.application.find("Emacs"):activate() end)
 
 -- Music control using VOX
 hs.hotkey.bind(hyperShift, 'p', function() hs.vox.playpause() end )
