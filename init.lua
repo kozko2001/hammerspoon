@@ -16,7 +16,7 @@ spoon.SpoonInstall:andUse("UnsplashZ")
 spoon.ReloadConfiguration:start()
 
 -- emojis shows
-spoon.Emojis:bindHotkeys({toggle = {hyper, 'f1'}})
+--spoon.Emojis:bindHotkeys({toggle = {hyper, 'f1'}})
 
 -- show clipboard history
 hs.hotkey.bind(hyper, "v", function() spoon.TextClipboardHistory:toggleClipboard() end)
