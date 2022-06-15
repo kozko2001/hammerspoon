@@ -10,7 +10,7 @@ spoon.use_syncinstall = true
 spoon.SpoonInstall:andUse("ReloadConfiguration")
 spoon.SpoonInstall:andUse("Emojis")
 spoon.SpoonInstall:andUse("TextClipboardHistory")
-spoon.SpoonInstall:andUse("UnsplashZ")
+spoon.SpoonInstall:andUse("UnsplashRandom")
 
 -- Reload configuration using a Spoon
 spoon.ReloadConfiguration:start()
@@ -118,30 +118,26 @@ end
 -- Applications
 
 local apps = {
-  c = 'Brave Browser Nightly',
+  -- c = 'Google Chrome',
+  c = 'Safari',
   f = 'Finder',
   t = 'kitty',
   p = 'KeePassXC',
   s = 'Slack',
   z = 'Zoom.us',
+  -- x = 'Tuple',
   n = 'Obsidian',
-  d = 'Google Chat'
-}
-
-local shift_apps = {
-  c = 'Safari'
+  -- d = 'Google Chat 2',
+  i = 'IntelliJ IDEA',
+  o = 'Firefox',
+  v = 'Visual Studio Code',
 }
 
 for key, app in pairs(apps) do
   hs.hotkey.bind(hyper, key, function() print(hs.application.launchOrFocus(app)) end)
 end
 
-
-for key, app in pairs(shift_apps) do
-  hs.hotkey.bind(hyperShift, key, function() print(hs.application.launchOrFocus(app)) end)
-end
-
-hs.hotkey.bind(hyper, "e", function() hs.application.find("Emacs"):activate() end)
+-- hs.hotkey.bind(hyper, "e", function() hs.application.find("Emacs"):activate() end)
 
 -- Music control using VOX
 --hs.hotkey.bind(hyperShift, 'p', function() hs.vox.playpause() end )
