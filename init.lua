@@ -10,7 +10,7 @@ spoon.use_syncinstall = true
 spoon.SpoonInstall:andUse("ReloadConfiguration")
 spoon.SpoonInstall:andUse("Emojis")
 spoon.SpoonInstall:andUse("TextClipboardHistory")
-spoon.SpoonInstall:andUse("UnsplashRandom")
+-- spoon.SpoonInstall:andUse("UnsplashRandom")
 
 -- Reload configuration using a Spoon
 spoon.ReloadConfiguration:start()
@@ -119,7 +119,7 @@ end
 
 local apps = {
   -- c = 'Google Chrome',
-  c = 'Safari',
+  c = 'Google Chrome',
   f = 'Finder',
   t = 'kitty',
   p = 'KeePassXC',
@@ -129,7 +129,6 @@ local apps = {
   n = 'Obsidian',
   -- d = 'Google Chat 2',
   i = 'IntelliJ IDEA',
-  o = 'Firefox',
   v = 'Visual Studio Code',
 }
 
@@ -137,68 +136,27 @@ for key, app in pairs(apps) do
   hs.hotkey.bind(hyper, key, function() print(hs.application.launchOrFocus(app)) end)
 end
 
--- hs.hotkey.bind(hyper, "e", function() hs.application.find("Emacs"):activate() end)
-
--- Music control using VOX
---hs.hotkey.bind(hyperShift, 'p', function() hs.vox.playpause() end )
---hs.hotkey.bind(hyperShift, '1', function() hs.vox.next() end )
---hs.hotkey.bind(hyperShift, '2', function() hs.vox.previous() end )
-
-
-
----
---- ZOOM!
----
-
-
-local timer_5_sec = hs.timer.new(3, function()
-  hs.printf("in timer....")
-  local state = spoon.Zoom:getAudioStatus()
-  hs.printf("tmer(%s)", state)
-  if(state == "off") then
-    zoomStatusMenuBarItem:setTitle("🔴")
-  elseif (state == "muted") then
-    zoomStatusMenuBarItem:setTitle("🔴")
-  elseif (state == "unmuted") then
-    zoomStatusMenuBarItem:setTitle("🟢")
-  end
-end, true)
-
-
-zoomStatusMenuBarItem = hs.menubar.new(nil)
-zoomStatusMenuBarItem:setClickCallback(function()
-    spoon.Zoom:toggleMute()
-end)
-
-
-
-updateZoomStatus = function(event)
-  hs.printf("updateZoomStatus(%s)", event)
-  if (event == "from-running-to-meeting") then
-    zoomStatusMenuBarItem:returnToMenuBar()
-    if(not timer_5_sec:running()) then 
-      hs.printf("start polling zoom muted state")
-      timer_5_sec:start()
+-- copied from https://liuhao.im/english/2017/06/02/macos-automation-and-shortcuts-with-hammerspoon.html
+function chrome_switch_to(ppl)
+    return function()
+        hs.application.launchOrFocus("Google Chrome")
+        local chrome = hs.appfinder.appFromName("Google Chrome")
+        local str_menu_item
+        if ppl == "Incognito" then
+            str_menu_item = {"File", "New Incognito Window"}
+        else
+            str_menu_item = {"Profiles", ppl}
+        end
+        local menu_item = chrome:findMenuItem(str_menu_item)
+        if (menu_item) then
+            chrome:selectMenuItem(str_menu_item)
+        end
     end
-  elseif (event == "muted") then
-    zoomStatusMenuBarItem:setTitle("🔴")
-  elseif (event == "unmuted") then
-    zoomStatusMenuBarItem:setTitle("🟢")
-  elseif (event == "from-meeting-to-running") then
-    zoomStatusMenuBarItem:removeFromMenuBar()
-
-    if(timer_5_sec:running()) then 
-      hs.printf("stop polling zoom muted state")
-      timer_5_sec:stop()
-    end
-  end
 end
 
-hs.loadSpoon("Zoom")
-spoon.Zoom:setStatusCallback(updateZoomStatus)
-spoon.Zoom:start()
+--- open different Chrome users
+hs.hotkey.bind(hyper, "1", chrome_switch_to("Jordi (TW)"))
+hs.hotkey.bind(hyper, "2", chrome_switch_to("Jordi (Civitatis)"))
+hs.hotkey.bind(hyper, "0", chrome_switch_to("Jordi (Personal)"))
 
---
---hs.hotkey.bind('', 'f5', function()
---  spoon.Zoom:toggleMute()
---end)
+

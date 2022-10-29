@@ -8,6 +8,6 @@ rm SpoonInstall.zip
 
 
 ## zoom spoon https://developer.okta.com/blog/2020/10/22/set-up-a-mute-indicator-light-for-zoom-with-hammerspoon
-git clone https://github.com/jpf/Zoom.spoon.git
-defaults write "org.hammerspoon.Hammerspoon" "MJShowMenuIconKey" '1'
+#git clone https://github.com/jpf/Zoom.spoon.git
+#defaults write "org.hammerspoon.Hammerspoon" "MJShowMenuIconKey" '1'
 
