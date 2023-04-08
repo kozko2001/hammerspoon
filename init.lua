@@ -119,16 +119,16 @@ end
 
 local apps = {
   -- c = 'Google Chrome',
-  c = 'Google Chrome',
+  c = 'Arc',
   f = 'Finder',
-  t = 'kitty',
+  t = 'wezterm',
   p = 'KeePassXC',
   s = 'Slack',
   z = 'Zoom.us',
   -- x = 'Tuple',
   n = 'Obsidian',
-  -- d = 'Google Chat 2',
-  i = 'IntelliJ IDEA',
+  d = 'Google Chat',
+  i = 'phpStorm',
   v = 'Visual Studio Code',
 }
 
@@ -139,13 +139,13 @@ end
 -- copied from https://liuhao.im/english/2017/06/02/macos-automation-and-shortcuts-with-hammerspoon.html
 function chrome_switch_to(ppl)
     return function()
-        hs.application.launchOrFocus("Google Chrome")
-        local chrome = hs.appfinder.appFromName("Google Chrome")
+        hs.application.launchOrFocus("Arc")
+        local chrome = hs.appfinder.appFromName("Arc")
         local str_menu_item
         if ppl == "Incognito" then
             str_menu_item = {"File", "New Incognito Window"}
         else
-            str_menu_item = {"Profiles", ppl}
+            str_menu_item = {"Spaces", ppl}
         end
         local menu_item = chrome:findMenuItem(str_menu_item)
         if (menu_item) then
@@ -155,8 +155,8 @@ function chrome_switch_to(ppl)
 end
 
 --- open different Chrome users
-hs.hotkey.bind(hyper, "1", chrome_switch_to("Jordi (TW)"))
-hs.hotkey.bind(hyper, "2", chrome_switch_to("Jordi (Civitatis)"))
-hs.hotkey.bind(hyper, "0", chrome_switch_to("Jordi (Personal)"))
+hs.hotkey.bind(hyper, "1", chrome_switch_to("ThoughtWorks"))
+hs.hotkey.bind(hyper, "2", chrome_switch_to("Civitatis"))
+hs.hotkey.bind(hyper, "0", chrome_switch_to("Jordi"))
 
 
